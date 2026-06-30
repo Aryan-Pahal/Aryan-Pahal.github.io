@@ -161,6 +161,39 @@
   .metric .num{font-family:'Space Grotesk'; font-size:28px; font-weight:700; color:var(--accent);}
   .metric .label{font-size:12.5px; color:var(--text-dim); margin-top:2px;}
 
+  /* showcase */
+  .showcase-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;
+  }
+  @media (max-width:880px){ .showcase-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .showcase-grid{grid-template-columns:1fr;} }
+  .shot{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    overflow:hidden; transition:border-color .2s, transform .2s; cursor:pointer;
+  }
+  .shot:hover{border-color:var(--accent-dim); transform:translateY(-2px);}
+  .shot img{width:100%; display:block; aspect-ratio:16/10; object-fit:cover; object-position:top;}
+  .shot-caption{padding:12px 14px; font-size:13px; color:var(--text-dim); border-top:1px solid var(--border);}
+  .shot-caption b{color:var(--text); font-weight:500;}
+  .video-cta{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    background:var(--panel-2); border:1px solid var(--border); border-radius:10px; padding:22px 26px;
+  }
+  .video-cta-text b{display:block; font-size:15px; margin-bottom:3px;}
+  .video-cta-text span{font-size:13px; color:var(--text-dim);}
+
+  /* lightbox */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(6,8,9,0.92); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:30px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{max-width:90vw; max-height:85vh; border-radius:8px; border:1px solid var(--border);}
+  .lightbox-close{
+    position:absolute; top:24px; right:28px; color:var(--text); font-size:28px;
+    cursor:pointer; line-height:1;
+  }
+
   /* process */
   .process-list{counter-reset:step;}
   .process-item{
@@ -194,6 +227,7 @@
     <div class="logo"><span class="logo-dot"></span>Aryan Pahal</div>
     <div class="nav-links">
       <a href="#services">Services</a>
+      <a href="#showcase">See It Work</a>
       <a href="#case-study">Case Study</a>
       <a href="#process">Process</a>
     </div>
@@ -279,6 +313,49 @@
   </div>
 </section>
 
+<section id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>See it in action</h2>
+      <p>Real screens from a deployed clinic system — not mockups.</p>
+    </div>
+    <div class="showcase-grid">
+      <div class="shot" onclick="openLightbox('assets/whatsapp-conversation.png')">
+        <img src="assets/whatsapp-conversation.png" alt="WhatsApp AI booking conversation">
+        <div class="shot-caption"><b>Live booking flow</b> — patient asks questions, AI answers, then sends the booking form automatically.</div>
+      </div>
+      <div class="shot" onclick="openLightbox('assets/whatsapp-followup.png')">
+        <img src="assets/whatsapp-followup.png" alt="WhatsApp automated review follow-up">
+        <div class="shot-caption"><b>Automated follow-up</b> — review request sent automatically after the visit, no manual reminder needed.</div>
+      </div>
+      <div class="shot" onclick="openLightbox('assets/n8n-workflow.png')">
+        <img src="assets/n8n-workflow.png" alt="n8n automation workflow canvas">
+        <div class="shot-caption"><b>n8n automation</b> — the workflow that triggers, filters, and logs every patient follow-up.</div>
+      </div>
+      <div class="shot" onclick="openLightbox('assets/sheets-queue.png')">
+        <img src="assets/sheets-queue.png" alt="Google Sheets live patient queue">
+        <div class="shot-caption"><b>Live patient queue</b> — every booking lands here in real time, status tracked automatically.</div>
+      </div>
+      <div class="shot" onclick="openLightbox('assets/sheets-followup-log.png')">
+        <img src="assets/sheets-followup-log.png" alt="Scheduled follow-up message log">
+        <div class="shot-caption"><b>Follow-up log</b> — every scheduled message tracked against the patient it was sent to.</div>
+      </div>
+    </div>
+    <div class="video-cta">
+      <div class="video-cta-text">
+        <b>Want to see it run start to finish?</b>
+        <span>Full walkthrough of the patient flow, from first message to doctor notification.</span>
+      </div>
+      <a href="assets/demo.mp4" target="_blank" class="btn-primary">Watch full demo</a>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="Expanded screenshot">
+</div>
+
 <section id="process">
   <div class="wrap">
     <div class="section-head">
@@ -323,5 +400,14 @@
   <div class="wrap">© 2026 Aryan Pahal — AI Automation for Healthcare</div>
 </footer>
 
+<script>
+  function openLightbox(src){
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('active');
+  }
+</script>
 </body>
 </html>
